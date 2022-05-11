@@ -96,8 +96,34 @@ def make_guess(board):
                 return x, y                
                 break
 
+
 def play_game(computer_board, player_board):
-    pass
+    """
+    Main game function. Controls the game logic"""
+    while True:
+        # Get the player's guess and populate computer's board
+        x, y = make_guess(player_board)    
+        print(f"Player guessed: {int(x), int(y)}")
+        if computer_board.guess(int(x), int(y)) == "Hit":
+            print("Player got a hit!")
+            scores ['player'] += 1
+        elif computer_board.guess(int(x), int(y)) == "Miss":
+            print("Player missed this time")
+        
+        # Get computer's guess and populate player's board
+        x, y = make_guess(computer_board)
+        print(f"Computer guessed: {x, y}")
+        if player_board.guess(int(x), int(y)) == "Hit":
+            print("Computer got a hit!")
+            scores["computer"] += 1
+        elif player_board.guess(x, y) == "Miss":
+            print("Computer missed this time")
+        
+        # Get user's feedback to quit or to continue
+        player_choice = input("Enter any key to continue or n to quit: ")
+        if player_choice.lower() == "n":
+            new_game()
+    
 
 def new_game():
     """
@@ -123,6 +149,8 @@ def new_game():
         populate_board(player_board)
         populate_board(computer_board)
     print("-" * 35)
-    print_board(computer_board, player_board)
+    player_board.print()
+    computer_board.print()
     play_game(computer_board, player_board)   
 
+new_game()
