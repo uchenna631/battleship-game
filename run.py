@@ -52,7 +52,26 @@ def random_point(size):
     return randint(0, size - 1)
 
 def validate_coordinates(x, y, board):
-    pass
+    try:
+        x, y = int(x), int(y)
+        board.board[x][y] in board.board
+
+    except IndexError:
+        print(f"Invalid entry: row and column must be an integer between 0 - {board.size - 1}.\n")
+        return False
+
+    except ValueError:
+        print(f"Invalid entry: Sorry, you can only enter integer numbers.\n")
+        return False
+
+    except Exception as e:
+        print(f"Invalid entry: {e}\n")
+        return False
+    else:
+        if (x, y) in board.guesses:
+            print("You cannot guess the same coordinates twice!\n")
+            return False
+    return True
 
 def populate_board(board):
     x = random_point(board.size)
@@ -60,7 +79,22 @@ def populate_board(board):
     board.add_ship(x, y)
 
 def make_guess(board):
-    pass
+    while True:
+        if board.type == "computer":
+            x, y = random_point(board.size), random_point(board.size)
+            if validate_coordinates(x, y, board):
+                board.guesses.append((x, y))
+                return x, y
+                break
+            
+                
+        elif board.type == "player":
+            x = input("Guess a row: ")
+            y = input("Guess a column: ")                      
+            if validate_coordinates(x, y, board): 
+                board.guesses.append((x, y))
+                return x, y                
+                break
 
 def play_game(computer_board, player_board):
     pass
