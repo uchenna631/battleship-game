@@ -44,3 +44,25 @@ class Board:
             self.ships.append((x, y))
             if self.type == "player":
                 self.board[x][y] = "@"
+
+def random_point(size):
+    """
+    Helper function to return a random integer between o and size
+    """
+    return randint(0, size - 1)
+
+def validate_coordinates(x, y, board):
+    pass
+
+def populate_board(board):
+    pass
+
+def make_guess(board):
+    pass
+
+def play_game(computer_board, player_board):
+    pass
+
+def new_game():
+   pass  
+
