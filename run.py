@@ -78,6 +78,7 @@ def populate_board(board):
     y = random_point(board.size)
     board.add_ship(x, y)
 
+
 def make_guess(board):
     while True:
         if board.type == "computer":
@@ -95,6 +96,14 @@ def make_guess(board):
                 board.guesses.append((x, y))
                 return x, y                
                 break
+
+def print_board(computer_board, player_board):
+    print(f"{player_board.name}'s Board:")
+    player_board.print()
+    print()
+    print("Computer's Board:")
+    computer_board.print()
+    print("-" * 35)
 
 
 def play_game(computer_board, player_board):
@@ -119,6 +128,8 @@ def play_game(computer_board, player_board):
         elif player_board.guess(x, y) == "Miss":
             print("Computer missed this time")
         
+        
+        print_board(computer_board, player_board)
         # Get user's feedback to quit or to continue
         player_choice = input("Enter any key to continue or n to quit: ")
         if player_choice.lower() == "n":
@@ -149,8 +160,7 @@ def new_game():
         populate_board(player_board)
         populate_board(computer_board)
     print("-" * 35)
-    player_board.print()
-    computer_board.print()
+    print_board(computer_board, player_board)
     play_game(computer_board, player_board)   
 
 new_game()
