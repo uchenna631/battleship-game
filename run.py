@@ -2,24 +2,24 @@ from random import randint
 
 scores = {'computer': 0, 'player': 0}
 
+
 # Board class adopted and modified from the CI's battleship tutorial
 class Board:
+
     """
     Main board class. Sets board size, the number of ships,
      the player's name and the board type (player board or computer).
      Has methods for adding ships and guesses and printing the board
-     """
-
+    """
 
     def __init__(self, size, num_ships, name, type):
         self.size = size
         self.board = [["." for x in range(size)] for y in range(size)]
         self.num_ships = num_ships
         self.name = name
-        self.type  = type
+        self.type = type
         self.guesses = []
         self.ships = []
-
 
     def print(self):
         # prints board
@@ -45,11 +45,13 @@ class Board:
             if self.type == "player":
                 self.board[x][y] = "@"
 
+
 def random_point(size):
     """
     Helper function to return a random integer between o and size
     """
     return randint(0, size - 1)
+
 
 def validate_coordinates(x, y, board):
     try:
@@ -57,7 +59,7 @@ def validate_coordinates(x, y, board):
         board.board[x][y] in board.board
 
     except IndexError:
-        print(f"Invalid entry: row and column must be an integer between 0 - {board.size - 1}.\n")
+        print("Invalid entry: row and column must be an integer between 0 - 4.")
         return False
 
     except ValueError:
@@ -73,6 +75,7 @@ def validate_coordinates(x, y, board):
             return False
     return True
 
+
 def populate_board(board):
     x = random_point(board.size)
     y = random_point(board.size)
@@ -86,9 +89,7 @@ def make_guess(board):
             if validate_coordinates(x, y, board):
                 board.guesses.append((x, y))
                 return x, y
-                break
-            
-                
+                break                
         elif board.type == "player":
             x = input("Guess a row: ")
             y = input("Guess a column: ")                      
@@ -97,9 +98,10 @@ def make_guess(board):
                 return x, y                
                 break
 
+
 def scores_status(board):
     """
-    Prints the scores status
+    Prints the score dashboard status after each round
     """
     print("-" * 35)
     print("After this round, the scores are:")
@@ -118,16 +120,21 @@ def print_board(computer_board, player_board):
     computer_board.print()
     print("-" * 35)
 
+
 def check_winner(scores, computer_board, player_board):
     """
     Checks winner and displays winning message
     """
-    if scores['player'] == player_board.num_ships and scores['computer'] == player_board.num_ships:
+    if (scores['player'] == player_board.num_ships
+       and scores['computer'] == player_board.num_ships):
         print("GAME OVER!!\n You both have a tie!")
     elif scores["player"] == player_board.num_ships:
-        print(f"GAME OVER!!\n Well done {player_board.name}!! You are the Victor")
+        print("GAME OVER!!")
+        print(f"Well done {player_board.name}!! You are the Victor")
     elif scores['computer'] == player_board.num_ships:
-        print(f"GAME OVER!!\n Try harder next time, {player_board.name}!! You lost to the computer")
+        print("GAME OVER!!") 
+        print(f"Sorry, {player_board.name}!! You lost to the computer")
+
 
 def play_game(computer_board, player_board):
     """
@@ -141,7 +148,7 @@ def play_game(computer_board, player_board):
         print(f"Player guessed: {x, y}")
         if computer_board.guess(x, y) == "Hit":
             print("Player got a hit!")
-            scores ['player'] += 1
+            scores['player'] += 1
         elif computer_board.guess(x, y) == "Miss":
             print("Player missed this time")
         
@@ -158,20 +165,20 @@ def play_game(computer_board, player_board):
         scores_status(player_board)
         print_board(computer_board, player_board)
         check_winner(scores, computer_board, player_board)
+
         # Get user's feedback to quit or to continue
         player_choice = input("Enter 'e' to quit, 'n' for new game and any key to continue: ")
         if player_choice.lower() == "n":
             new_game()
         elif player_choice.lower() == "e":
             break
-    
+
 
 def new_game():
     """
     Starts a new game. Sets the board size and number of ships, resets the 
     scores and initialises the boards.
     """
-
     size = 5
     num_ships = 4
     scores["computer"] = 0
@@ -182,7 +189,6 @@ def new_game():
     print("Top left corner is row: 0, col: 0")
     print("-" * 35)
     player_name = input('Please input your name:\n')
-
     computer_board = Board(size, num_ships, "Computer", type="computer") 
     player_board = Board(size, num_ships, player_name, type="player") 
 
@@ -192,5 +198,6 @@ def new_game():
     print("-" * 35)
     print_board(computer_board, player_board)
     play_game(computer_board, player_board)   
+
 
 new_game()
