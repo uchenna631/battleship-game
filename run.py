@@ -55,7 +55,9 @@ def validate_coordinates(x, y, board):
     pass
 
 def populate_board(board):
-    pass
+    x = random_point(board.size)
+    y = random_point(board.size)
+    board.add_ship(x, y)
 
 def make_guess(board):
     pass
@@ -68,7 +70,7 @@ def new_game():
     Starts a new game. Sets the board size and number of ships, resets the 
     scores and initialises the boards.
     """
-        
+
     size = 5
     num_ships = 4
     scores["computer"] = 0
