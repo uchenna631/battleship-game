@@ -67,7 +67,7 @@ def validate_coordinates(x, y, board):
     except Exception as e:
         print(f"Invalid entry: {e}\n")
         return False
-    else:
+    finally:
         if (x, y) in board.guesses:
             print("You cannot guess the same coordinates twice!\n")
             return False
@@ -135,16 +135,19 @@ def play_game(computer_board, player_board):
     and controls the game logic"""
     while True:
         # Get the player's guess and populate computer's board
-        x, y = make_guess(player_board)    
-        print(f"Player guessed: {int(x), int(y)}")
-        if computer_board.guess(int(x), int(y)) == "Hit":
+        x, y = make_guess(player_board)
+        x, y = int(x), int(y)
+        player_board.guesses.append((x, y))    
+        print(f"Player guessed: {x, y}")
+        if computer_board.guess(x, y) == "Hit":
             print("Player got a hit!")
             scores ['player'] += 1
-        elif computer_board.guess(int(x), int(y)) == "Miss":
+        elif computer_board.guess(x, y) == "Miss":
             print("Player missed this time")
         
         # Get computer's guess and populate player's board
         x, y = make_guess(computer_board)
+        computer_board.guesses.append((x, y))
         print(f"Computer guessed: {x, y}")
         if player_board.guess(int(x), int(y)) == "Hit":
             print("Computer got a hit!")
@@ -156,9 +159,11 @@ def play_game(computer_board, player_board):
         print_board(computer_board, player_board)
         check_winner(scores, computer_board, player_board)
         # Get user's feedback to quit or to continue
-        player_choice = input("Enter any key to continue or n to quit: ")
+        player_choice = input("Enter 'e' to quit, 'n' for new game and any key to continue: ")
         if player_choice.lower() == "n":
             new_game()
+        elif player_choice.lower() == "e":
+            break
     
 
 def new_game():
