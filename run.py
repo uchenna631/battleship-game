@@ -97,7 +97,20 @@ def make_guess(board):
                 return x, y                
                 break
 
+def scores_status(board):
+    """
+    Prints the scores status
+    """
+    print("-" * 35)
+    print("After this round, the scores are:")
+    print(f"{board.name}: {scores['player']} Computer: {scores['computer']}")
+    print("-" * 35) 
+
+
 def print_board(computer_board, player_board):
+    """
+    Prints the player's board and the computer's board
+    """
     print(f"{player_board.name}'s Board:")
     player_board.print()
     print()
@@ -105,10 +118,21 @@ def print_board(computer_board, player_board):
     computer_board.print()
     print("-" * 35)
 
+def check_winner(scores, computer_board, player_board):
+    """
+    Checks winner and displays winning message
+    """
+    if scores['player'] == player_board.num_ships and scores['computer'] == player_board.num_ships:
+        print("GAME OVER!!\n You both have a tie!")
+    elif scores["player"] == player_board.num_ships:
+        print(f"GAME OVER!!\n Well done {player_board.name}!! You are the Victor")
+    elif scores['computer'] == player_board.num_ships:
+        print(f"GAME OVER!!\n Try harder next time, {player_board.name}!! You lost to the computer")
 
 def play_game(computer_board, player_board):
     """
-    Main game function. Controls the game logic"""
+    Main game function. Takes in the board instances as arguement
+    and controls the game logic"""
     while True:
         # Get the player's guess and populate computer's board
         x, y = make_guess(player_board)    
@@ -128,8 +152,9 @@ def play_game(computer_board, player_board):
         elif player_board.guess(x, y) == "Miss":
             print("Computer missed this time")
         
-        
+        scores_status(player_board)
         print_board(computer_board, player_board)
+        check_winner(scores, computer_board, player_board)
         # Get user's feedback to quit or to continue
         player_choice = input("Enter any key to continue or n to quit: ")
         if player_choice.lower() == "n":
