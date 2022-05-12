@@ -100,7 +100,7 @@ def make_guess(board):
                 break
 
 
-def scores_status(board):
+def scores_dashboard(board):
     """
     Prints the score dashboard status after each round
     """
@@ -163,7 +163,7 @@ def play_game(computer_board, player_board):
         elif player_board.guess(x, y) == "Miss":
             print("Computer missed this time")
 
-        scores_status(player_board)
+        scores_dashboard(player_board)
         print_board(computer_board, player_board)
         check_winner(scores, computer_board, player_board)
 
