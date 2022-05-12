@@ -59,15 +59,15 @@ def validate_coordinates(x, y, board):
         board.board[x][y] in board.board
 
     except IndexError:
-        print("Invalid entry: row and column must be an integer between 0 - 4.")
+        print("Invalid data: row and column must be an integer between 0 - 4.")
         return False
 
     except ValueError:
-        print(f"Invalid entry: Sorry, you can only enter integer numbers.\n")
+        print(f"Invalid data: sorry, you can only enter integer numbers.\n")
         return False
 
     except Exception as e:
-        print(f"Invalid entry: {e}\n")
+        print(f"Invalid data: {e}\n")
         return False
     finally:
         if (x, y) in board.guesses:
@@ -89,13 +89,14 @@ def make_guess(board):
             if validate_coordinates(x, y, board):
                 board.guesses.append((x, y))
                 return x, y
-                break                
+                break
+
         elif board.type == "player":
             x = input("Guess a row: ")
-            y = input("Guess a column: ")                      
-            if validate_coordinates(x, y, board): 
+            y = input("Guess a column: ")
+            if validate_coordinates(x, y, board):
                 board.guesses.append((x, y))
-                return x, y                
+                return x, y
                 break
 
 
@@ -106,7 +107,7 @@ def scores_status(board):
     print("-" * 35)
     print("After this round, the scores are:")
     print(f"{board.name}: {scores['player']} Computer: {scores['computer']}")
-    print("-" * 35) 
+    print("-" * 35)
 
 
 def print_board(computer_board, player_board):
@@ -125,14 +126,14 @@ def check_winner(scores, computer_board, player_board):
     """
     Checks winner and displays winning message
     """
-    if (scores['player'] == player_board.num_ships
-       and scores['computer'] == player_board.num_ships):
-        print("GAME OVER!!\n You both have a tie!")
+    if (scores['player'] == player_board.num_ships and
+       scores['computer'] == player_board.num_ships):
+            print("GAME OVER!!\n You both have a tie!")
     elif scores["player"] == player_board.num_ships:
         print("GAME OVER!!")
         print(f"Well done {player_board.name}!! You are the Victor")
     elif scores['computer'] == player_board.num_ships:
-        print("GAME OVER!!") 
+        print("GAME OVER!!")
         print(f"Sorry, {player_board.name}!! You lost to the computer")
 
 
@@ -144,14 +145,14 @@ def play_game(computer_board, player_board):
         # Get the player's guess and populate computer's board
         x, y = make_guess(player_board)
         x, y = int(x), int(y)
-        player_board.guesses.append((x, y))    
+        player_board.guesses.append((x, y))
         print(f"Player guessed: {x, y}")
         if computer_board.guess(x, y) == "Hit":
             print("Player got a hit!")
             scores['player'] += 1
         elif computer_board.guess(x, y) == "Miss":
             print("Player missed this time")
-        
+
         # Get computer's guess and populate player's board
         x, y = make_guess(computer_board)
         computer_board.guesses.append((x, y))
@@ -161,13 +162,14 @@ def play_game(computer_board, player_board):
             scores["computer"] += 1
         elif player_board.guess(x, y) == "Miss":
             print("Computer missed this time")
-        
+
         scores_status(player_board)
         print_board(computer_board, player_board)
         check_winner(scores, computer_board, player_board)
 
         # Get user's feedback to quit or to continue
         player_choice = input("Enter 'e' to quit, 'n' for new game and any key to continue: ")
+
         if player_choice.lower() == "n":
             new_game()
         elif player_choice.lower() == "e":
@@ -176,7 +178,7 @@ def play_game(computer_board, player_board):
 
 def new_game():
     """
-    Starts a new game. Sets the board size and number of ships, resets the 
+    Starts a new game. Sets the board size and number of ships, resets the
     scores and initialises the boards.
     """
     size = 5
@@ -189,15 +191,15 @@ def new_game():
     print("Top left corner is row: 0, col: 0")
     print("-" * 35)
     player_name = input('Please input your name:\n')
-    computer_board = Board(size, num_ships, "Computer", type="computer") 
-    player_board = Board(size, num_ships, player_name, type="player") 
+    computer_board = Board(size, num_ships, "Computer", type="computer")
+    player_board = Board(size, num_ships, player_name, type="player")
 
     for _ in range(num_ships):
         populate_board(player_board)
         populate_board(computer_board)
     print("-" * 35)
     print_board(computer_board, player_board)
-    play_game(computer_board, player_board)   
+    play_game(computer_board, player_board)
 
 
 new_game()
