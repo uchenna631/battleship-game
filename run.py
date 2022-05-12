@@ -168,7 +168,8 @@ def play_game(computer_board, player_board):
         check_winner(scores, computer_board, player_board)
 
         # Get user's feedback to quit or to continue
-        player_choice = input("Enter 'e' to quit, 'n' for new game and any key to continue: ")
+        player_choice = input("Enter 'e' to quit, 'n' for new game and \
+any key to continue: ")
 
         if player_choice.lower() == "n":
             new_game()
@@ -185,11 +186,11 @@ def new_game():
     num_ships = 4
     scores["computer"] = 0
     scores["player"] = 0
-    print("-" * 35)
+    print("-" * 37)
     print("Welcome to the ULTIMATE BATTLESHIPS!!")
     print(f"Board Size: {size}. Number of Ships: {num_ships}")
     print("Top left corner is row: 0, col: 0")
-    print("-" * 35)
+    print("-" * 37)
     player_name = input('Please input your name:\n')
     computer_board = Board(size, num_ships, "Computer", type="computer")
     player_board = Board(size, num_ships, player_name, type="player")
