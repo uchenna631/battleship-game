@@ -174,7 +174,7 @@ any key to continue: ")
         if player_choice.lower() == "n":
             new_game()
         elif player_choice.lower() == "e":
-            break
+            exit()
 
 
 def new_game():
