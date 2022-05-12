@@ -191,9 +191,16 @@ def new_game():
     print(f"Board Size: {size}. Number of Ships: {num_ships}")
     print("Top left corner is row: 0, col: 0")
     print("-" * 37)
-    player_name = input('Please input your name:\n')
+    while True:
+        player_name = input('Please input your name:\n')
+        if player_name.isalpha():
+            print()
+            break
+        else:
+            print("Invalid entry: players name must be an alphabet")
+
     computer_board = Board(size, num_ships, "Computer", type="computer")
-    player_board = Board(size, num_ships, player_name, type="player")
+    player_board = Board(size, num_ships, player_name.capitalize(), type="player")
 
     for _ in range(num_ships):
         populate_board(player_board)
