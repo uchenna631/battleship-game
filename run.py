@@ -182,8 +182,19 @@ def new_game():
     Starts a new game. Sets the board size and number of ships, resets the
     scores and initialises the boards.
     """
-    size = 5
+    print("The board size must be integers between 3 and 6\n")
+    while True:
+        try:
+            size = int(input("Choose the board size: "))
+            if size >= 3 and size <= 10:
+                break
+        except ValueError:
+            print("The board size must be integer number\n")
+        else:
+            print("Out of bound: choose an integer between 3 and 6\n")
+
     num_ships = 4
+        
     scores["computer"] = 0
     scores["player"] = 0
     print("-" * 37)
