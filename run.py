@@ -126,10 +126,7 @@ def check_winner(scores, computer_board, player_board):
     """
     Checks winner and displays winning message
     """
-    if (scores['player'] == player_board.num_ships and
-       scores['computer'] == player_board.num_ships):
-            print("GAME OVER!!\n You both have a tie!")
-    elif scores["player"] == player_board.num_ships:
+    if scores["player"] == player_board.num_ships:
         print("GAME OVER!!")
         print(f"Well done {player_board.name}!! You are the Victor")
     elif scores['computer'] == player_board.num_ships:
