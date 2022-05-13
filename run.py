@@ -59,7 +59,7 @@ def validate_coordinates(x, y, board):
         board.board[x][y] in board.board
 
     except IndexError:
-        print("Invalid data: row and column must be an integer between 0 - 4.")
+        print(f"Invalid data: row and column must be an integer between 0 - {board.size}")
         return False
 
     except ValueError:
@@ -189,7 +189,7 @@ def new_game():
             if size >= 3 and size <= 10:
                 break
         except ValueError:
-            print("The board size must be integer number\n")
+            print("The board size must be an integer number\n")
         else:
             print("Out of bound: choose an integer between 3 and 10\n")
 
