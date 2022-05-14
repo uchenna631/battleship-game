@@ -112,3 +112,9 @@ Steps for deployment
     5. Push to both Github and Heroku
     command: "git push" 
     command: "git push heroku main"
+
+## Credit
+
+- Code Institute's tutorial on battleship game and README.md file
+- Code Institute for the deployment termial
+- Mentor - Spencer Barriball for his insight, support and guidance
