@@ -28,10 +28,10 @@ class Board:
             print("  ".join(row))
 
     def guess(self, x, y):
-        # appends X at the chosen coordinates
+        # appends "X" at the chosen coordinates
         self.board[x][y] = "X"
 
-        # appends * if chosen coordinates hits a target
+        # appends "*" if chosen coordinates hits a target
         if (x, y) in self.ships:
             self.board[x][y] = "*"
             return "Hit"
@@ -48,6 +48,7 @@ class Board:
 
 
 def random_point(size):
+
     """
     Helper function to return a random integer between o and size
     """
@@ -55,21 +56,24 @@ def random_point(size):
 
 
 def validate_coordinates(x, y, board):
+
+    """
+    Function to validate coordinate inputs from users
+    """
+
     try:
         x, y = int(x), int(y)
         board.board[x][y] in board.board
 
     except IndexError:
-        print(f"Invalid data: row and column must be an integer between 0 - {board.size - 1}")
+        print(f"Invalid data: row and column\
+must be an integer between 0 - {board.size - 1}\n")
         return False
 
     except ValueError:
         print(f"Invalid data: sorry, you can only enter integer numbers.\n")
         return False
 
-    except Exception as e:
-        print(f"Invalid data: {e}\n")
-        return False
     finally:
         if (x, y) in board.guesses:
             print("You cannot guess the same coordinates twice!\n")
@@ -78,12 +82,22 @@ def validate_coordinates(x, y, board):
 
 
 def populate_board(board):
+
+    """
+    Function to add ships to the board's ships list
+    """
+
     x = random_point(board.size)
     y = random_point(board.size)
     board.add_ship(x, y)
 
 
 def make_guess(board):
+
+    """
+    Function to get validated user guess and append it to the guesses list
+    """
+
     while True:
         if board.type == "computer":
             x, y = random_point(board.size), random_point(board.size)
@@ -102,9 +116,11 @@ def make_guess(board):
 
 
 def scores_dashboard(board):
+
     """
     Prints the score dashboard status after each round
     """
+
     print("-" * 35)
     print("After this round, the scores are:")
     print(f"{board.name}: {scores['player']} Computer: {scores['computer']}")
@@ -112,9 +128,11 @@ def scores_dashboard(board):
 
 
 def print_board(computer_board, player_board):
+
     """
     Prints the player's board and the computer's board
     """
+
     print(f"{player_board.name}'s Board:")
     player_board.print()
     print()
@@ -124,9 +142,11 @@ def print_board(computer_board, player_board):
 
 
 def check_winner(scores, computer_board, player_board):
+
     """
-    Checks winner and displays winning message
+    Function that checks the winner and displays the winning message
     """
+
     if scores["player"] == player_board.num_ships:
         print("GAME OVER!!")
         print(f"Well done {player_board.name}!! You are the Victor")
@@ -136,9 +156,11 @@ def check_winner(scores, computer_board, player_board):
 
 
 def play_game(computer_board, player_board):
+
     """
     Main game function. Takes in the board instances as arguement
     and controls the game logic"""
+
     while True:
         # Get the player's guess and populate computer's board
         x, y = make_guess(player_board)
@@ -165,7 +187,7 @@ def play_game(computer_board, player_board):
         print_board(computer_board, player_board)
         check_winner(scores, computer_board, player_board)
 
-        # Get user's feedback to quit or to continue
+        # Get user's feedback to continue or to quit
         player_choice = input("Enter 'e' to quit, 'n' for new game and \
 any key to continue: ")
 
@@ -176,10 +198,12 @@ any key to continue: ")
 
 
 def new_game():
+
     """
     Starts a new game. Sets the board size and number of ships, resets the
     scores and initialises the boards.
     """
+
     print()
     print("The board size must be integers between 3 and 10\n")
 
@@ -196,6 +220,7 @@ def new_game():
 
     print()
     print("The number of ships must be integers between 3 and 10\n")
+
     # Get the number of ships from the user and validate it
     while True:
         try:
@@ -214,17 +239,21 @@ def new_game():
     print(f"Board Size: {size}. Number of Ships: {num_ships}")
     print("Top left corner is row: 0, col: 0")
     print("-" * 37)
+
+    # Get the player's name
     while True:
-        player_name = input('Please input your name:\n')
+        player_name = input('Please input your name: ')
         if player_name.isalpha():
             print()
             break
         else:
             print("Invalid entry: players name must be an alphabet")
 
+    # Get board instances
     computer_board = Board(size, num_ships, "Computer", type="computer")
     player_board = Board(size, num_ships, player_name.capitalize(), type="player")
 
+    # Append ships to the board instances
     for _ in range(num_ships):
         populate_board(player_board)
         populate_board(computer_board)
