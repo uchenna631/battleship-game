@@ -60,7 +60,7 @@ def validate_coordinates(x, y, board):
         board.board[x][y] in board.board
 
     except IndexError:
-        print(f"Invalid data: row and column must be an integer between 0 - {board.size}")
+        print(f"Invalid data: row and column must be an integer between 0 - {board.size - 1}")
         return False
 
     except ValueError:
