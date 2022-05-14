@@ -1,4 +1,5 @@
 from random import randint
+import sys
 
 scores = {'computer': 0, 'player': 0}
 
@@ -171,7 +172,7 @@ any key to continue: ")
         if player_choice.lower() == "n":
             new_game()
         elif player_choice.lower() == "e":
-            exit()
+            sys.exit("You have quit the game")
 
 
 def new_game():
@@ -192,7 +193,6 @@ def new_game():
             print("The board size must be an integer number\n")
         else:
             print("Out of bound: choose an integer between 3 and 10\n")
-
 
     print()
     print("The number of ships must be integers between 3 and 10\n")
