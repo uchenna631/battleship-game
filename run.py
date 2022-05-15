@@ -231,7 +231,7 @@ def new_game():
             print("The number of ships must be integer number\n")
         else:
             print("Out of bound: choose an integer between 3 and 10\n")
-        
+
     scores["computer"] = 0
     scores["player"] = 0
     print("-" * 37)
@@ -242,7 +242,7 @@ def new_game():
 
     # Get the player's name
     while True:
-        player_name = input('Please input your name: ')
+        player_name = input('Please input your name: ').capitalize()
         if player_name.isalpha():
             print()
             break
@@ -251,7 +251,7 @@ def new_game():
 
     # Get board instances
     computer_board = Board(size, num_ships, "Computer", type="computer")
-    player_board = Board(size, num_ships, player_name.capitalize(), type="player")
+    player_board = Board(size, num_ships, player_name, type="player")
 
     # Append ships to the board instances
     for _ in range(num_ships):
